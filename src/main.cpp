@@ -1,17 +1,24 @@
 #include "AcController.h"
+#include "AcControllerInput.h"
+#include "AcControllerOutput.h"
+
 #include <unistd.h>
 
 
 int main()
 {
-    AcController AcController;
+    AcControllerInput input;
+    AcControllerOutput output;
+    AcController acController(input, output);
 
     while(true)
     {
-        AcController.cycle();
+        input.cycle();
+        acController.cycle();
+        output.cycle();
         
-        // cycle time is 100 us
-        constexpr useconds_t CYCLE_TIME_U_SEC = 100000U; 
+        // cycle time is 1 seconds
+        constexpr useconds_t CYCLE_TIME_U_SEC = 1000000U; 
         usleep(CYCLE_TIME_U_SEC);
     }
 

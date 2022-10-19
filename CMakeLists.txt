@@ -8,6 +8,8 @@ add_executable(daikin
 
 src/AcController.cpp
 src/AcControllerStates.cpp
+src/AcControllerInput.cpp
+src/AcControllerOutput.cpp
 src/main.cpp)
 
 target_include_directories(daikin PRIVATE include)
