@@ -21,8 +21,13 @@ add_executable(
 )
 target_link_libraries(
     TestAcController
+    daikin_ac_controller
   GTest::gtest_main
+  gmock_main
+
 )
+
+target_include_directories(TestAcController PUBLIC ../include)
 
 include(GoogleTest)
 gtest_discover_tests(TestAcController)

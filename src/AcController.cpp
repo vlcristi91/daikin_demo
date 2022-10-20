@@ -1,7 +1,7 @@
 #include "AcController.h"
 #include "AcControllerStates.h"
 
-AcController::AcController(const AcControllerInput &input, AcControllerOutput &output)
+AcController::AcController(const IAcControllerInput &input, IAcControllerOutput &output)
 	: _currentState(&AcControllerOff::getInstance()), _input(input), _output(output)
 {
 }

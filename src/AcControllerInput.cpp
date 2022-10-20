@@ -20,6 +20,6 @@ void AcControllerInput::readDesiredTemp()
 
 void AcControllerInput::readInteriorTemp()
 {
-    // for PoC set random interior temp between 0 and 46 C
-    _interiorTemp = rand() % 4600;
+    // for PoC set random interior temp between 18 and 30 C
+    _interiorTemp = 1800 + rand() % 1200;
 }

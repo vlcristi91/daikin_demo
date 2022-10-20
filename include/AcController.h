@@ -2,13 +2,13 @@
 
 #include "AcControllerState.h"
 
-class AcControllerInput;
-class AcControllerOutput;
+class IAcControllerInput;
+class IAcControllerOutput;
 
 class AcController
 {
 public:
-	AcController(const AcControllerInput &input, AcControllerOutput &output);
+	AcController(const IAcControllerInput &input, IAcControllerOutput &output);
 
 	AcControllerState *getCurrentState() const { return _currentState; }
 	void cycle();
@@ -16,6 +16,6 @@ public:
 
 private:
 	AcControllerState *_currentState;
-	const AcControllerInput &_input;
-	AcControllerOutput &_output;
+	const IAcControllerInput &_input;
+	IAcControllerOutput &_output;
 };

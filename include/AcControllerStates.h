@@ -7,9 +7,9 @@ class AcController;
 class AcControllerOff : public AcControllerState
 {
 public:
-	void enter(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override;
-	void cycle(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override;
-	void exit(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override {}
+	void enter(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override;
+	void cycle(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override;
+	void exit(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override {}
 	static AcControllerState &getInstance();
 
 private:
@@ -21,9 +21,9 @@ private:
 class AcControllerHeating : public AcControllerState
 {
 public:
-	void enter(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override;
-	void cycle(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override;
-	void exit(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override {}
+	void enter(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override;
+	void cycle(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override;
+	void exit(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override {}
 	static AcControllerState &getInstance();
 
 private:
@@ -35,9 +35,9 @@ private:
 class AcControllerCooling : public AcControllerState
 {
 public:
-	void enter(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override;
-	void cycle(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override;
-	void exit(AcController *acController, const AcControllerInput &input, AcControllerOutput &output) override {}
+	void enter(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override;
+	void cycle(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override;
+	void exit(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output) override {}
 	static AcControllerState &getInstance();
 
 private:

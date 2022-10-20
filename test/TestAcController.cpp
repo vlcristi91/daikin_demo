@@ -1,9 +1,149 @@
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-// Demonstrate some basic assertions.
-TEST(HelloTest, BasicAssertions) {
-  // Expect two strings not to be equal.
-  EXPECT_STRNE("hello", "world");
-  // Expect equality.
-  EXPECT_EQ(7 * 6, 42);
+#include "AcController.h"
+#include "IAcControllerInput.h"
+#include "IAcControllerOutput.h"
+#include "AcControllerStates.h"
+#include "common.h"
+
+class MockInput : public IAcControllerInput
+{
+  public:
+    MOCK_METHOD(void, cycle, (), (override)); 
+    MOCK_METHOD(temp, getInteriorTemperature, (), (const, override));
+    MOCK_METHOD(temp, getDesiredTemperature, (), (const, override));
+};
+
+
+class MockOutput : public IAcControllerOutput
+{
+  public:
+    MOCK_METHOD(void, cycle, (), (override)); 
+    MOCK_METHOD(void, setCoolingHeatingDemand, (percentage), (override));
+};
+
+
+
+class TestAcController : public ::testing::Test
+{
+  public:
+    TestAcController() : _acController(_input, _output) {}
+
+    void SetUp() override
+    {
+
+    }
+
+    void TearDown() override
+    {
+
+    }
+
+
+    ::testing::StrictMock<MockInput> _input;
+    ::testing::StrictMock<MockOutput> _output;
+    AcController _acController;
+};
+
+
+using ::testing::Return;
+using ::testing::_;
+
+TEST_F(TestAcController, TestStateOffToOff) 
+{
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2300));
+  EXPECT_CALL(_input, getDesiredTemperature()).WillRepeatedly(Return(2300));
+
+  _acController.setState(AcControllerOff::getInstance());
+
+  EXPECT_CALL(_output, setCoolingHeatingDemand(0)).Times(1);
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerOff::getInstance()); 
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2400));
+  EXPECT_CALL(_input, getDesiredTemperature()).WillRepeatedly(Return(2300));
+  EXPECT_CALL(_output, setCoolingHeatingDemand(0)).Times(1);
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerOff::getInstance()); 
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2200));
+  EXPECT_CALL(_input, getDesiredTemperature()).WillRepeatedly(Return(2300));
+  EXPECT_CALL(_output, setCoolingHeatingDemand(0)).Times(1);
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerOff::getInstance()); 
+
+}
+
+TEST_F(TestAcController, TestStateOffToHeating) 
+{
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2199));
+  EXPECT_CALL(_input, getDesiredTemperature()).WillRepeatedly(Return(2300));
+
+  _acController.setState(AcControllerOff::getInstance());
+
+  EXPECT_CALL(_output, setCoolingHeatingDemand(25)).Times(1);
+  _acController.cycle();
+  //cycle again so coolingHeatingDemand is sent.
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerHeating::getInstance()); 
+
+}
+
+TEST_F(TestAcController, TestStateOffToCooling) 
+{
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2401));
+  EXPECT_CALL(_input, getDesiredTemperature()).WillRepeatedly(Return(2300));
+
+  _acController.setState(AcControllerOff::getInstance());
+
+  EXPECT_CALL(_output, setCoolingHeatingDemand(-25)).Times(1);
+  _acController.cycle();
+  //cycle again so coolingHeatingDemand is sent.
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerCooling::getInstance()); 
+}
+
+TEST_F(TestAcController, TestStateCooling) 
+{
+  _acController.setState(AcControllerCooling::getInstance());
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2450));
+  EXPECT_CALL(_input, getDesiredTemperature()).WillRepeatedly(Return(2300));
+  EXPECT_CALL(_output, setCoolingHeatingDemand(-37)).Times(1);
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerCooling::getInstance()); 
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2370));
+  EXPECT_CALL(_output, setCoolingHeatingDemand(-17)).Times(1);
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerCooling::getInstance()); 
+
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2300));
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerOff::getInstance()); 
+}
+
+TEST_F(TestAcController, TestStateHeating) 
+{
+  _acController.setState(AcControllerHeating::getInstance());
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2150));
+  EXPECT_CALL(_input, getDesiredTemperature()).WillRepeatedly(Return(2300));
+  EXPECT_CALL(_output, setCoolingHeatingDemand(37)).Times(1);
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerHeating::getInstance()); 
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2230));
+  EXPECT_CALL(_output, setCoolingHeatingDemand(17)).Times(1);
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerHeating::getInstance()); 
+
+  EXPECT_CALL(_input, getInteriorTemperature()).WillRepeatedly(Return(2300));
+  _acController.cycle();
+  EXPECT_EQ(_acController.getCurrentState(), &AcControllerOff::getInstance()); 
 }

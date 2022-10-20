@@ -1,7 +1,7 @@
 #include "AcControllerStates.h"
 #include "AcController.h"
-#include "AcControllerInput.h"
-#include "AcControllerOutput.h"
+#include "IAcControllerInput.h"
+#include "IAcControllerOutput.h"
 #include "common.h"
 
 #include <iostream>
@@ -33,7 +33,7 @@ namespace
     constexpr percentage MAX_COOLING = 100;
     constexpr percentage MAX_HEATING = -100;
 
-    temp getTempDelta(const AcControllerInput &input)
+    temp getTempDelta(const IAcControllerInput &input)
     {
         return input.getDesiredTemperature() - input.getInteriorTemperature();
     }
@@ -77,13 +77,13 @@ namespace
     }
 }
 
-void AcControllerOff::cycle(AcController *acController, const AcControllerInput &input, AcControllerOutput &output)
+void AcControllerOff::cycle(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output)
 {
     std::cout << "In state off" << std::endl;
 
     const auto delta = getTempDelta(input);
 
-    if (delta < COOLING_HEATING_TOLERANCE)
+    if (delta < -COOLING_HEATING_TOLERANCE)
     {
         acController->setState(AcControllerCooling::getInstance());
     }
@@ -98,33 +98,34 @@ void AcControllerOff::cycle(AcController *acController, const AcControllerInput 
     }
 }
 
-void AcControllerOff::enter(AcController *acController, const AcControllerInput &input, AcControllerOutput &output)
+void AcControllerOff::enter(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output)
 {
 }
 
-void AcControllerHeating::cycle(AcController *acController, const AcControllerInput &input, AcControllerOutput &output)
+void AcControllerHeating::cycle(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output)
 {
     std::cout << "in state heating" << std::endl;
 
     const auto delta = getTempDelta(input);
 
     // if we reach the desired temperature go to state off
-    if ((delta >= -COOLING_HEATING_TOLERANCE) && (delta < 0))
+    if (delta <= 0)
     {
         acController->setState(AcControllerOff::getInstance());
     }
     else
     {
         const int coolingHeatingDemand = calculateCoolingHeatingDemand(delta);
+        std::cout << coolingHeatingDemand;
         output.setCoolingHeatingDemand(coolingHeatingDemand);
     }
 }
 
-void AcControllerHeating::enter(AcController *acController, const AcControllerInput &input, AcControllerOutput &output)
+void AcControllerHeating::enter(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output)
 {
 }
 
-void AcControllerCooling::cycle(AcController *acController, const AcControllerInput &input, AcControllerOutput &output)
+void AcControllerCooling::cycle(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output)
 {
     std::cout << "in state cooling" << std::endl;
     const auto delta = getTempDelta(input);
@@ -141,6 +142,6 @@ void AcControllerCooling::cycle(AcController *acController, const AcControllerIn
     }
 }
 
-void AcControllerCooling::enter(AcController *acController, const AcControllerInput &input, AcControllerOutput &output)
+void AcControllerCooling::enter(AcController *acController, const IAcControllerInput &input, IAcControllerOutput &output)
 {
 }
