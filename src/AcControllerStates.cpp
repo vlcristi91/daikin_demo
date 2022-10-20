@@ -28,11 +28,6 @@ AcControllerState &AcControllerHeating::getInstance()
 
 namespace
 {
-    const temp COOLING_HEATING_TOLERANCE = celsiusToTemp(1);
-    constexpr percentage COOLING_HEATING_OFF = 0;
-    constexpr percentage MAX_COOLING = 100;
-    constexpr percentage MAX_HEATING = -100;
-
     temp getTempDelta(const IAcControllerInput &input)
     {
         return input.getDesiredTemperature() - input.getInteriorTemperature();
