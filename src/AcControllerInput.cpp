@@ -2,27 +2,24 @@
 #include <stdlib.h>
 #include <iostream>
 
-AcControllerInput::AcControllerInput() : _interiorTemp(20), _desiredTemp(23)
+AcControllerInput::AcControllerInput() : _interiorTemp(2000), _desiredTemp(2300)
 {
-    
 }
 
 void AcControllerInput::cycle()
 {
     readInteriorTemp();
     readDesiredTemp();
-
-    std::cout << _interiorTemp << ";" << _desiredTemp << std::endl;
 }
-
 
 void AcControllerInput::readDesiredTemp()
 {
     // for POC desired temp stays constant.
-    _desiredTemp = 23;
+    _desiredTemp = 2300;
 }
 
 void AcControllerInput::readInteriorTemp()
 {
-    _interiorTemp = rand() % 46;
+    // for PoC set random interior temp between 0 and 46 C
+    _interiorTemp = rand() % 4600;
 }
