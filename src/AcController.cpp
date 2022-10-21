@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     AcController.cpp
+/// @ingroup  AcController
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+/// @brief    The AcController class definition
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #include "AcController.h"
 #include "AcControllerStates.h"
 
