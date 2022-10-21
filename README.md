@@ -1,4 +1,8 @@
-# daikin_demo
+# Daikin Demo
+
+
+
+## How to build and run
 
 to generate project run  `cmake . -B build`
 
@@ -9,8 +13,9 @@ to run sample main application `./daikin`
 to run tests `cd test && ctest`
 
 
-============================================
-Software design
+
+
+## Software design
 
 ![image](https://user-images.githubusercontent.com/17096958/197128628-5d16c8a2-03f1-4d08-b4bf-605c5503dbd4.png)
 
