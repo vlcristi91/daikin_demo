@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     IAcControllerOutput.h
+/// @ingroup  IAcControllerOutput
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+/// @brief    The IAcControllerOutput class declaration
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #pragma once
 #include "common.h"
 
