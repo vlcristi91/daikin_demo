@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     AcControllerStates.h
+/// @ingroup  AcControllerStates
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+/// @brief    The AcControllerStates class declaration
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
 #include "AcControllerState.h"
