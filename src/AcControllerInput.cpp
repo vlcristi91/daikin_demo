@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     AcControllerInput.cpp
+/// @ingroup  AcControllerInput
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+/// @brief    The AcControllerInput class definition
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #include "AcControllerInput.h"
 #include <stdlib.h>
 #include <iostream>
