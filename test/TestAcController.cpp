@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     TestAcController.cpp
+/// @ingroup  AcControllerUnitTests
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+/// @brief    Unit Tests for AcController
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
