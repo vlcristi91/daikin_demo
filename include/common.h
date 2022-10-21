@@ -1,3 +1,13 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     common.h
+/// @ingroup  common
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
 // temperature represented by 100 factor to avoid using floats. ("centi Celsius"), meaning 1C = 100cC
