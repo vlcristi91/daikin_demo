@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     main.cpp
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #include "AcController.h"
 #include "AcControllerInput.h"
 #include "AcControllerOutput.h"
