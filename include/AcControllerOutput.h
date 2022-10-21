@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+/// @file     AcControllerOutput.h
+/// @ingroup  AcControllerOutput
+/// @author   Ausy Technologies
+/// @date     21/10/2022
+/// @brief    The AcControllerOutput class declaration
+
+/// @copyright Copyright (C) 2022
+/// @copyright Ausy Technologies
+/// @copyright All rights reserved
+///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
 #include "IAcControllerOutput.h"
